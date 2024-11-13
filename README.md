@@ -2,7 +2,10 @@
 
 ![Tardis flying in the sky](images/tardiscover.jpg "T.ime A.nd R.elative D.imension I.n S.pace")
 
-This is the final exercise of the **"Introduction to Data & SQL"** course by **Code First Girls**.
+This is the final exercise of the **"Introduction to Data & SQL"** course by **Code First Girls** ![logo_ironhack_blue 7](images/cfg.png)
+
+The online version of the presentation is available [here](https://www.canva.com/design/DAGWTVfIB5U/jpuaOQBb-4KVkLCuWhtS8g/view?utm_content=DAGWTVfIB5U&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+You can also download the presentation in pdf format [here](https://github.com/datasilvia/Doctor-Who-DataBase/blob/main/DDoctor-Who-DataBase.pdf).
 
 
 I discovered **Doctor Who** with the Eleventh Doctor.
@@ -20,17 +23,17 @@ And yes, I also visited Stonehenge.
 On the 50th anniversary of the series I was also able to see the premiere of the special chapter in the cinema in my city.
 
 
-Reasons for Choosing the Doctor Who Theme
+## Reasons for Choosing the Doctor Who Theme
 
-    1.- Rich and Expansive Universe: Doctor Who is the longest-running and most beloved science fiction series, with a vast universe filled with diverse characters, settings, and plot arcs. This expansive content offers an excellent foundation for creating a complex and engaging database.
+1.- **Rich and Expansive Universe**: Doctor Who is the longest-running and most beloved science fiction series, with a vast universe filled with diverse characters, settings, and plot arcs. This expansive content offers an excellent foundation for creating a complex and engaging database.
 
-    2.- Variety of Data Types: The Doctor Who universe includes various elements, such as Doctors, companions, enemies, episodes, and story arcs. This diversity allows for different types of data relationships and provides an opportunity to showcase advanced database design skills, including many-to-many relationships, subqueries, and views.
+2.- **Variety of Data Types**: The Doctor Who universe includes various elements, such as Doctors, companions, enemies, episodes, and story arcs. This diversity allows for different types of data relationships and provides an opportunity to showcase advanced database design skills, including many-to-many relationships, subqueries, and views.
 
-    3.- Potential for Complex Queries and Analysis: With a wide range of interconnected data, this theme allows for the creation of complex queries that reveal interesting insights. For example, analyzing recurring villains, exploring the dynamics between different Doctors and their companions.
+3.- **Potential for Complex Queries and Analysis**: With a wide range of interconnected data, this theme allows for the creation of complex queries that reveal interesting insights. For example, analyzing recurring villains, exploring the dynamics between different Doctors and their companions.
 
-    4.- Popular Cultural Appeal: As an iconic cultural phenomenon, Doctor Who is familiar to many people, making the project interesting and relatable. This also adds value to the project as it demonstrates a practical example of how databases can be used to explore and analyze popular media.
+4.- **Popular Cultural Appeal**: As an iconic cultural phenomenon, Doctor Who is familiar to many people, making the project interesting and relatable. This also adds value to the project as it demonstrates a practical example of how databases can be used to explore and analyze popular media.
 
-    5.- Historical and Thematic Depth: Doctor Who covers various themes, from time travel to moral dilemmas, and has evolved over decades, reflecting changes in storytelling and technology. This adds an additional layer of depth to the project, making it not just a technical exercise but also an exploration of thematic elements within the show.
+5.- **Historical and Thematic Depth**: Doctor Who covers various themes, from time travel to moral dilemmas, and has evolved over decades, reflecting changes in storytelling and technology. This adds an additional layer of depth to the project, making it not just a technical exercise but also an exploration of thematic elements within the show.
 
 
 When I started doing this project I realized the huge amount of data that exists on this topic, and I decided to use only a small part of it.
@@ -46,7 +49,6 @@ I created a small database like this:
 First I created the **tables** and I filled in their attributes:
 
 
-    ''' sql
 
     CREATE TABLE doctors(
 	    id INT PRIMARY KEY,
@@ -61,7 +63,6 @@ First I created the **tables** and I filled in their attributes:
 	    actor VARCHAR(80),
 	    first_appearance YEAR);
 
-
     CREATE TABLE doctor_companion (
         doctor_id INT,
         companion_id INT,
@@ -69,13 +70,11 @@ First I created the **tables** and I filled in their attributes:
         FOREIGN KEY (doctor_id) REFERENCES doctors(id),
         FOREIGN KEY (companion_id) REFERENCES companions(id));
 
-
     CREATE TABLE enemies(
 	    id INT PRIMARY KEY,
 	    name VARCHAR(50),
 	    description VARCHAR(200),
 	    first_appearance YEAR);
-
 
     CREATE TABLE episodes(
 	    id INT PRIMARY KEY,
@@ -85,7 +84,6 @@ First I created the **tables** and I filled in their attributes:
         doctor_id INT,
         FOREIGN KEY (doctor_id) REFERENCES doctors(id));
 
-
     CREATE TABLE episode_enemy(
         episode_id INT,
         enemy_id INT,
@@ -93,7 +91,6 @@ First I created the **tables** and I filled in their attributes:
         FOREIGN KEY (episode_id) REFERENCES episodes(id),
         FOREIGN KEY (enemy_id) REFERENCES enemies(id));
     
-
     CREATE TABLE episode_companion (
         episode_id INT,
         companion_id INT,
@@ -102,15 +99,15 @@ First I created the **tables** and I filled in their attributes:
         FOREIGN KEY (companion_id) REFERENCES companions(id)
     );
 
-    '''
+    
 
 Then I used **INSERTS** to fill in the data.
 
 Later I created a **view**:
 
-    ''' sql
+   
     CREATE VIEW episode_details AS
-        SELECT 
+    SELECT 
         e.id AS episode_id,
         e.name AS episode_name,
         e.description AS episode_description,
@@ -132,99 +129,97 @@ Later I created a **view**:
     LEFT JOIN 
         enemies en ON ee.enemy_id = en.id;
 
-    '''
+    
 
 
 Two **functions**:
 
-''' sql
 
-DROP FUNCTION IF EXISTS count_enemy_episodes;
+    DROP FUNCTION IF EXISTS count_enemy_episodes;
 
+    DELIMITER //
 
-DELIMITER //
-
-CREATE FUNCTION count_enemy_episodes(input_enemy_id INT)
-RETURNS INT
-DETERMINISTIC
-BEGIN
-    DECLARE episode_count INT;
+    CREATE FUNCTION count_enemy_episodes(input_enemy_id INT)
+    RETURNS INT
+    DETERMINISTIC
+    BEGIN
+        DECLARE episode_count INT;
     
-    SELECT COUNT(DISTINCT episode_id) INTO episode_count
-    FROM episode_enemy
-    WHERE enemy_id = input_enemy_id;
+        SELECT COUNT(DISTINCT episode_id) INTO episode_count
+        FROM episode_enemy
+        WHERE enemy_id = input_enemy_id;
 
-    RETURN episode_count;
-END //
+        RETURN episode_count;
+    END //
 
-DELIMITER ;
-
-
-
-SELECT 
-    e.name AS enemy_name,
-    count_enemy_episodes(e.id) AS total_episodes
-FROM 
-    enemies e;
-
-'''
-''' sql
-
-DROP FUNCTION IF EXISTS count_doctor_companions;
-
-DELIMITER //
-
-CREATE FUNCTION count_doctor_companions(input_doctor_id INT)
-RETURNS INT
-DETERMINISTIC
-BEGIN
-    DECLARE companion_count INT;
-
-    SELECT COUNT(DISTINCT companion_id) INTO companion_count
-    FROM doctor_companion
-    WHERE doctor_id = input_doctor_id;
-
-    RETURN companion_count;
-END //
-
-DELIMITER ;
+    DELIMITER ;
 
 
-SELECT 
-    d.name AS doctor_name,
-    count_doctor_companions(d.id) AS total_companions
-FROM 
-    doctors d;
 
-'''
+    SELECT 
+        e.name AS enemy_name,
+        count_enemy_episodes(e.id) AS total_episodes
+    FROM 
+        enemies e;
+
+
+
+
+    DROP FUNCTION IF EXISTS count_doctor_companions;
+
+    DELIMITER //
+
+    CREATE FUNCTION count_doctor_companions(input_doctor_id INT)
+    RETURNS INT
+    DETERMINISTIC
+    BEGIN
+        DECLARE companion_count INT;
+
+        SELECT COUNT(DISTINCT companion_id) INTO companion_count
+        FROM doctor_companion
+        WHERE doctor_id = input_doctor_id;
+
+        RETURN companion_count;
+    END //
+
+    DELIMITER ;
+
+
+    SELECT 
+        d.name AS doctor_name,
+        count_doctor_companions(d.id) AS total_companions
+    FROM 
+        doctors d;
+
+
 
 
 
 And an **example query**:
 
-'''sql
 
-SELECT 
-    d.name AS doctor_name,
-    COUNT(DISTINCT e.id) AS total_enemy_episodes
-FROM 
-    doctors d
-JOIN 
-    episodes e ON d.id = e.doctor_id
-JOIN 
-    episode_enemy ee ON e.id = ee.episode_id
-WHERE 
-    d.id = (
-        SELECT doctor_id
-        FROM episodes e
-        JOIN episode_enemy ee ON e.id = ee.episode_id
-        GROUP BY e.doctor_id
-        ORDER BY COUNT(DISTINCT e.id) DESC
-        LIMIT 1
-    )
-GROUP BY d.name;
 
-'''
+    SELECT 
+        d.name AS doctor_name,
+        COUNT(DISTINCT e.id) AS total_enemy_episodes
+    FROM 
+        doctors d
+    JOIN 
+        episodes e ON d.id = e.doctor_id
+    JOIN 
+        episode_enemy ee ON e.id = ee.episode_id
+    WHERE 
+        d.id = (
+            SELECT doctor_id
+            FROM episodes e
+            JOIN episode_enemy ee ON e.id = ee.episode_id
+            GROUP BY e.doctor_id
+            ORDER BY COUNT(DISTINCT e.id) DESC
+            LIMIT 1
+        )
+    GROUP BY d.name;
+
+
 
 You can see the **ERD** diagram here:
 
