@@ -2,11 +2,8 @@
 
 ![Tardis flying in the sky](images/tardiscover.jpg "T.ime A.nd R.elative D.imension I.n S.pace")
 
-This is the final exercise of the **"Introduction to Data & SQL"** course by **Code First Girls** <a href="https://codefirstgirls.com/">
+This is the final exercise of the **"Introduction to Data & SQL"** course by [**Code First Girls**](https://codefirstgirls.com)<a href="https://codefirstgirls.com"><img src="images/cfg.png" alt="Code First Girls logo" width="100" height="100"></a>
 
-  <img src="images/cfg.png" alt="Code First Girls logo" width="100" height="100">
-
-</a>
 
 The online version of the presentation is available [here](https://www.canva.com/design/DAGWTVfIB5U/jpuaOQBb-4KVkLCuWhtS8g/view?utm_content=DAGWTVfIB5U&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
