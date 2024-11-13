@@ -2,10 +2,15 @@
 
 ![Tardis flying in the sky](images/tardiscover.jpg "T.ime A.nd R.elative D.imension I.n S.pace")
 
-This is the final exercise of the **"Introduction to Data & SQL"** course by **Code First Girls** ![logo_ironhack_blue 7](images/cfg.png)
+This is the final exercise of the **"Introduction to Data & SQL"** course by **Code First Girls** <a href="https://codefirstgirls.com/">
+
+  <img src="images/cfg.png" alt="Code First Girls logo" width="100" height="100">
+
+</a>
 
 The online version of the presentation is available [here](https://www.canva.com/design/DAGWTVfIB5U/jpuaOQBb-4KVkLCuWhtS8g/view?utm_content=DAGWTVfIB5U&utm_campaign=designshare&utm_medium=link&utm_source=editor)
-You can also download the presentation in pdf format [here](https://github.com/datasilvia/Doctor-Who-DataBase/blob/main/DDoctor-Who-DataBase.pdf).
+
+You can also download the presentation in pdf format [here](https://github.com/datasilvia/Doctor-Who-DataBase/blob/main/Doctor-Who-DataBase.pdf).
 
 
 I discovered **Doctor Who** with the Eleventh Doctor.
@@ -238,6 +243,24 @@ You can see the **ERD** diagram here:
 8. **Regeneration Events**: Detail each Doctor’s regeneration circumstances for continuity analysis.
 9. **Key Objects/Technology**: Track notable objects like the Sonic Screwdriver across episodes.
 10. **Implement Data Integrity Triggers**: Add triggers to ensure data consistency when adding or updating records.
+
+
+
+## Interesting reads and resources about Doctor Who:
+
+https://s.telegraph.co.uk/graphics/projects/doctor-who/
+
+https://m.imdb.com/search/title/?count=250&series=tt0436992&sort=user_rating,desc
+
+https://tardis.fandom.com/wiki/Doctor_Who_Wiki
+
+https://www.bbc.co.uk/programmes/articles/4tDN85fyxYXTtVPrCql8jB/monsters
+
+https://www.ign.com/articles/2018/07/18/doctor-who-a-guide-to-all-the-doctors
+
+https://drwho.theplanetarium.org/
+
+
 
 
 
